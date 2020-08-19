@@ -1,6 +1,5 @@
-import sys
 # Let's build a data driven machine!
-
+import sys
 # What do we need to have our machine working?
 """
 - Some sort of memory
@@ -18,6 +17,7 @@ PRINT_NUM = 3
 SAVE = 4
 PRINT_REG = 5
 ADD = 6
+# TODO: PUSH and POP
 SUB = 23
 LDI = 0b10000010
 PRN = 0b01000111
@@ -28,50 +28,30 @@ def load_memory(filename):
     # TODO do some logic here
     try:
         address = 0
-        # print(sys.argv[1])
         with open(filename) as f:
             for line in f:
-                comment_split = line.split('#')
+                comment_split = line.split("#")
                 n = comment_split[0].strip()
 
                 if n == '':
                     continue
-                
+
                 val = int(n, 2)
                 # store val in memory
                 memory[address] = val
 
-                address+=1
-                # x = int(n, 2)
-                # print(f'{x:08b}: {x:d}')
-    
+                address += 1
+
+                # print(f"{x:08b}: {x:d}")
+
     except FileNotFoundError:
-        print(f'{sys.argv[0]}: {filename} not found!')
+        print(f"{sys.argv[0]}: {filename} not found")
+        sys.exit(2)
 
 
 memory = [0] * 256
 
 
-# memory = [
-#     PRINT_VLAD,
-#     SAVE,
-#     300,
-#     3,
-#     PRINT_REG,
-#     3,
-#     SAVE,
-#     24,
-#     2,
-#     ADD,
-#     2,
-#     3,
-#     PRINT_REG,
-#     2,
-#     PRINT_NUM,
-#     120,
-#     PRINT_VLAD,
-#     HALT
-# ]
 # keep track of running?
 running = True
 
@@ -80,16 +60,23 @@ pc = 0
 # Some local var holders [registers]
 registers = [0] * 10
 
+# TODO: Stack Pointer (R7) as per specs
+# index of the registers list 
+# SP
+
+# to use to store where the top of the stack is
+# 0xF4 (244)
+
 # size of opcode
 op_size = 1
 
-# TODO: grab any args
-if len(sys.argv) !=2:
-    print('usage: simple.py filename')
+# grab any args
+if len(sys.argv) != 2:
+    print("usage: simple.py filename")
     sys.exit(1)
 # TODO: load opcodes in to memory
 load_memory(sys.argv[1])
-# print(memory)
+
 
 # REPL to run once per cycle of CPU
 # inside this we will have our FETCH, DECODE, EXECUTE CYCLE
@@ -133,6 +120,14 @@ while running:
         registers[reg_index_a] -= registers[reg_index_b]
 
         op_size = 3
+    
+    # TODO: PUSH
+
+    # TODO: POP
+
+    else:
+        print(f"Invalid Instruction: {cmd}")
+        running = False
 
 
     pc += op_size

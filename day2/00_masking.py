@@ -35,6 +35,17 @@
 # operand_size == 0b00000010 # => 2
 # add_to_pc = operand_size + 1
 
+# 10100000 >> 6 => 00000010 => 2 == the operand size
+# operand_size = ADD >> 6
+# add_to_pc = operand_size + 1
+
+memory = [
+    LDI, # <------ PC is pointing here
+    12,
+    2,
+    PRINT_VLAD <-- PC is pointing here after add_to_pc 
+]
+
 # # FETCH
 # ir = 0b10000010
 
