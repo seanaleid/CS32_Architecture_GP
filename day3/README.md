@@ -13,8 +13,8 @@ F7: 00
 F6: 00 
 F5: 00 
 F4: 00 
-F3: 12 
-F2: 32 
+F3: 00 
+F2: 00 
 F1: 00
 F0: 00
 EF: 00
@@ -26,14 +26,14 @@ EF: 00
 03: XX
 02: XX 
 01: XX 
-00: XX <-- PC <-- SP
+00: XX <-- PC 
 
 
 R0: 12
 R1: 32
 R2: 00
 
-R7: F3 (this is the SP)
+R7: F4 (this is the SP)
 
 PUSH R0 #
 PUSH R1 #
